@@ -3,7 +3,7 @@ lists= list(alp)
 
 
 def encrypt(text, shift):
-    string=""
+    string="" 
     
     for i in text:
 
@@ -18,7 +18,7 @@ def encrypt(text, shift):
             # string += lists[new_index]
         
         else:
-            string+=i
+            string+=i 
 
     print(f"Your encoded message : {string}")  
 
