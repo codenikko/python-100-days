@@ -21,5 +21,8 @@ round(5.5)  # 6
 
 
 def function1():
+#     do this
+#     then do this 
+#     then do this
 
-    function1(argument2=”brotoban”, argument1=”i am”)
+function1(argument2=”brotoban”, argument1=”i am”)
