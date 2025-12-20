@@ -1,9 +1,9 @@
-for _ in range(2):
-    # do this
-    # then do this       #run the intended code 2 times idc the variable
-# **********************************************************
+try:
+    age = int(input("How old are you?"))
 
+except ValueError:
+    print("type a numerical number, not in words.")
+    age = int(input("How old are you?"))
 
-
-local variables can be used only inside the function 
-Global ones can be used anywhwere
+if age > 18:
+    print("You can drive at age {age}.")
