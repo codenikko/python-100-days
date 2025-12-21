@@ -31,18 +31,19 @@ resources = {
     "coffee": 100,
 }
 
-will_get_coffee= True
+
 
 def resource_is_sufficient(choice):
-    c = 0
-    global will_get_coffee
     for i in ["water","milk","coffee"]:
-        if MENU[choice]["ingredients"][i]<=resources[i]:
-            resources[i] -= MENU[choice]["ingredients"][i]
-        else:
+        if MENU[choice]["ingredients"][i]>=resources[i]:
             print(f"Sorry for the inconvenience, out of {i} today!")
-            will_get_coffee = False
-            break
+            return False
+    return True
+
+def deduct_resources(choice):
+    for i in ["water", "milk", "coffee"]:
+        resources[i] -= MENU[choice]["ingredients"][i]
+
     
 
     
@@ -62,17 +63,24 @@ def process_coins():
 
 # Let's tackle the cost part
 def tackle_cost():
+
+    if not resource_is_sufficient(choice_of_coffee):
+        return
     money_received = process_coins()
-    if money_received > MENU[choice_of_coffee]["cost"] and will_get_coffee == True:
-        print(f"Here's' your change of ${round(money_received - MENU[choice_of_coffee]["cost"],2)}")
-        print(f"HERE'S YOUR {choice_of_coffee.upper()}")
+    cost = MENU[choice_of_coffee]["cost"]
 
-    elif money_received < MENU[choice_of_coffee]["cost"]:
+
+    if money_received < cost:
         print("Insufficient funds, money refunded")
+        return
 
-    else:
-        print("No change to process")
-        print(f"HERE'S YOUR {choice_of_coffee.upper()}")
+
+    if money_received > cost:
+        print(f"Here's your change of ${round(money_received - cost, 2)}")
+
+        deduct_resources(choice_of_coffee)
+        print(f"HERE'S YOUR {choice_of_coffee.upper()} ☕🔥")
+
 
 
 
@@ -87,13 +95,8 @@ while want == True:
     if choice_of_coffee == "resources":
         print(resources)
     else:
-        resource_is_sufficient(choice_of_coffee)
         print("\n"*4)
-
-
-
-        if not will_get_coffee == False:
-            tackle_cost()
+        tackle_cost()
 
     again= input("Do you want another coffee? 'y' for yes 'n' for no")
     if again == "y":
