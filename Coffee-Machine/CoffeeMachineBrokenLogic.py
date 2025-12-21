@@ -31,7 +31,6 @@ resources = {
     "coffee": 100,
 }
 
-will_get_coffee= True
 
 def resource_is_sufficient(choice):
     c = 0
